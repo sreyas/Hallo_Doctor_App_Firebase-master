@@ -177,7 +177,7 @@ class TimeSlotService {
       var documentRef = FirebaseFirestore.instance
           .collection('DoctorTimeslot')
           .where('doctorId', isEqualTo: doctor!.doctorId)
-          .where('charged', isEqualTo: true).where('callstatus', isEqualTo: '0');
+          .where('charged', isEqualTo: true);
       var documentSnapshot = limit == null
           ? await documentRef.get()
           : await documentRef.limit(limit).get();

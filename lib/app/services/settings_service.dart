@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hive/hive.dart';
 
+import '../models/faq_model.dart';
+
 class SettingsService {
   Future getTermsAndConditions() async {
     try {
@@ -93,6 +95,17 @@ class SettingsService {
       settingsBox.put('clientLanguage', dbLanguage);
       int serverLanguageVersion = await getServerLanguageVersion();
       settingsBox.put('languageVersion', serverLanguageVersion);
+    } catch (e) {
+      return Future.error(e);
+    }
+  }
+  Future<List<FaqModel>> getFaq() async {
+    try {
+      var faqRef = await FirebaseFirestore.instance.collection('Faq').get();
+      List<FaqModel> faq = faqRef.docs
+          .map((thisFaq) => FaqModel.fromFirestore(thisFaq))
+          .toList();
+      return faq;
     } catch (e) {
       return Future.error(e);
     }

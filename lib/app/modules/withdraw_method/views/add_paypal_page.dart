@@ -15,7 +15,7 @@ class AddPaypalPage extends GetView<WithdrawMethodController> {
     return Scaffold(
       appBar: AppBar(
           title: Text(
-            'Add Paypal',
+            'Add Account',
             style: Styles.appBarTextStyle,
           ),
           centerTitle: true,
@@ -43,7 +43,7 @@ class AddPaypalPage extends GetView<WithdrawMethodController> {
                   onEditingComplete: () => node.nextFocus(),
                 ),
                 SizedBox(
-                  height: 30,
+                  height: 10,
                 ),
                 FormBuilderTextField(
                   name: 'email',
@@ -54,12 +54,44 @@ class AddPaypalPage extends GetView<WithdrawMethodController> {
                   ),
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    hintText: 'Paypal Email Address',
+                    hintText: 'Email Address',
                   ),
                   onEditingComplete: () => node.nextFocus(),
                 ),
                 SizedBox(
-                  height: 30,
+                  height: 10,
+                ),
+                FormBuilderTextField(
+                  name: 'accountno',
+                  validator: FormBuilderValidators.compose(
+                    [
+                      FormBuilderValidators.minLength(context, 14),
+                    ],
+                  ),
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: 'Account No',
+                  ),
+                  onEditingComplete: () => node.nextFocus(),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                FormBuilderTextField(
+                  name: 'ifsc',
+                  validator: FormBuilderValidators.compose(
+                    [
+                      FormBuilderValidators.minLength(context, 6),
+                    ],
+                  ),
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: 'IFSC',
+                  ),
+                  onEditingComplete: () => node.nextFocus(),
+                ),
+                SizedBox(
+                  height: 10,
                 ),
                 submitButton(
                     onTap: () {
@@ -67,7 +99,10 @@ class AddPaypalPage extends GetView<WithdrawMethodController> {
                       if (_formKey.currentState!.validate()) {
                         controller.addPaypal(
                             _formKey.currentState!.value['name'],
-                            _formKey.currentState!.value['email']);
+                            _formKey.currentState!.value['email'],
+                          _formKey.currentState!.value['accountno'],
+                            _formKey.currentState!.value['ifsc']);
+
                         print('validation success');
                       } else {
                         print("validation failed");

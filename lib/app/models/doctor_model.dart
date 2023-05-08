@@ -22,7 +22,7 @@ class Doctor {
   @JsonKey(name: 'doctorHospital')
   String? doctorHospital;
   @JsonKey(name: 'balance')
-  int? doctorBalance;
+  double? doctorBalance;
   @JsonKey(name: 'accountStatus')
   String? accountStatus;
   @JsonKey(name: 'academicQualification')

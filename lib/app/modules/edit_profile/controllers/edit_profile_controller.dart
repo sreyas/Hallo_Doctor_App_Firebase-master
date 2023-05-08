@@ -1,4 +1,9 @@
+
+import 'dart:io';
+
+import 'package:csv/csv.dart';
 import 'package:flutter/cupertino.dart';
+
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -8,6 +13,10 @@ import 'package:hallo_doctor_doctor_app/app/modules/edit_profile/views/pages/upd
 import 'package:hallo_doctor_doctor_app/app/services/doctor_service.dart';
 import 'package:hallo_doctor_doctor_app/app/services/user_service.dart';
 import 'package:hallo_doctor_doctor_app/app/utils/exceptions.dart';
+
+import 'package:path_provider/path_provider.dart';
+
+
 
 class EditProfileController extends GetxController {
   //TODO: Implement EditProfileController
@@ -73,4 +82,39 @@ class EditProfileController extends GetxController {
       EasyLoading.dismiss();
     }
   }
+
+  Future<Directory> createCsvFile() async {
+    // List<List<dynamic>> data = [
+    //   ['Name', 'Email', 'Phone'],
+    //   ['John Doe', 'johndoe@email.com', '123-456-7890'],
+    //   ['Jane Smith', 'janesmith@email.com', '456-789-0123'],
+    // ];
+    //
+    // final directory = await getExternalStorageDirectory();
+    // String downloadsPath = '${directory?.path}/Download';
+    // final downloadsDirectory = Directory(downloadsPath);
+    // downloadsDirectory.createSync();
+    // String csvFilePath = '$downloadsPath/file.csv';
+    // final csvFile = File(csvFilePath);
+    // String csv = const ListToCsvConverter().convert(data);
+    // csvFile.writeAsString(csv);
+    // print('CSV file created at $csvFilePath');
+    // print('CSV file created  $downloadsPath');
+
+
+    // Get the application support directory path on the device.
+    final Directory appDir = await getApplicationSupportDirectory();
+
+    // Create the app directory with the name "my_app_data".
+    final Directory myAppDir = Directory('${appDir.path}/my_app_data');
+    if (!await myAppDir.exists()) {
+      await myAppDir.create(recursive: true);
+    }
+    print('CSV file created at $myAppDir');
+    // Return the directory.
+    return myAppDir;
+
+  }
+
+
 }

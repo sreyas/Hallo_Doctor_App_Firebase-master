@@ -112,9 +112,17 @@ class ProfileView extends GetView<ProfileController> {
             icon: Icons.account_balance_wallet_rounded,
             text: 'Balance'.tr,
           ),
+          ProfileButton(
+            onTap: () {
+              controller.toInvoice();
+            },
+            icon: Icons.account_balance_wallet_rounded,
+            text: 'Invoice'.tr,
+          ),
           SizedBox(
             height: 20,
           ),
+
           ProfileButton(
             onTap: () {
               controller.logout();
@@ -131,16 +139,25 @@ class ProfileView extends GetView<ProfileController> {
               //controller.uploadLanguage();
             },
             child: Text('Contact Us'),
+          ), TextButton(
+            onPressed: () {
+              //controller.testButton();
+              //LocalizationService().changeLocale('France');
+              Get.toNamed('/faq');
+            },
+            child: Text('FAQ'),
           ),
+
           TextButton(
             onPressed: () {
               // controller.testButton();
               // LocalizationService().changeLocale('France');
-              Get.toNamed(Routes.CONTACT_US);
+              Get.toNamed(Routes.PRIVACY_POLICY);
               //controller.uploadLanguage();
             },
             child: Text('Privacy Policy'),
           )
+
           //test button, you can delete it
           // ElevatedButton(
           //     onPressed: () {

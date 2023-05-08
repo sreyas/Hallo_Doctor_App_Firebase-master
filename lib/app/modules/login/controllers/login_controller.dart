@@ -31,6 +31,8 @@ class LoginController extends GetxController {
       AuthService().login(username, password).then((value) {
         //Check whether, user is already set his detail doctor in server
         AuthService().checkDoctorDetail().then((doctorDetail) {
+
+
           if (doctorDetail) GetStorage().write(checkDoctorDetail, true);
           Get.offNamed('/dashboard');
         });

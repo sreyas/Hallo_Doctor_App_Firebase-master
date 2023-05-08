@@ -18,10 +18,28 @@ class DoctorService {
       required String pastExperienceInConsulting,
       required int basePrice,
       required String age,
-       required String recognition,
+      required String recognition,
       required String valueYouBring,
+       required String country,
+      required String state,
+      required String statecode,
+      required String gstno,
+        required String address,
+        required String uniquekey,
+        required String gstType,
+        required String pan,
+        required String mobile,
+
+
+
+
       bool isUpdate = false}) async {
     try {
+
+
+
+
+
       CollectionReference doctors =
           FirebaseFirestore.instance.collection('Doctors');
       Map<String, dynamic> doctorsData = {
@@ -39,10 +57,21 @@ class DoctorService {
         'pastExperienceInCompany': pastExperienceInCompany,
         'pastExperienceInConsulting': pastExperienceInConsulting,
         'age': age,
-        'doctorRating' :0,
+        'doctorRating' :0.1,
         'totalRatingCount' :0,
         'recognition': recognition,
-        'valueYouBring': valueYouBring
+        'valueYouBring': valueYouBring,
+        'country':country,
+        'state':state,
+        'statecode':statecode,
+        'gstno':gstno,
+        'address':address,
+        'uniquekey':uniquekey,
+        'gstType':gstType,
+        'pan':pan,
+        'mobile':mobile,
+
+
 
       };
 
@@ -59,6 +88,7 @@ class DoctorService {
     } catch (e) {
       return Future.error(e);
     }
+
   }
 
   ///get doctor, if current doctor is null will get from server
@@ -99,4 +129,6 @@ class DoctorService {
       return Future.error(e.toString());
     }
   }
+
+
 }

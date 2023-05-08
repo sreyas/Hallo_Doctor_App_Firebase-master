@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -7,10 +8,27 @@ import 'package:hallo_doctor_doctor_app/app/modules/login/views/widgets/submit_b
 
 import '../controllers/add_doctor_detail_controller.dart';
 
-class AddDoctorDetailView extends GetView<AddDoctorDetailController> {
+
+
+
+class AddDoctorDetailView extends StatelessWidget {
+  final AddDoctorDetailController _adddoctorController = Get.put(AddDoctorDetailController());
+
+  TextEditingController _textController = TextEditingController();
+  final FirebaseFirestore _db = FirebaseFirestore.instance;
+
+  String? _selectedValue,_selectedValueState;
+  bool _showIndianStateSelection = false;
+  late String state,statecode="Code";
+
+
+
   @override
   Widget build(BuildContext context) {
+
+
     final node = FocusScope.of(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Add Doctor Information'.tr),
@@ -20,14 +38,14 @@ class AddDoctorDetailView extends GetView<AddDoctorDetailController> {
         padding: EdgeInsets.fromLTRB(30, 20, 30, 20),
         child: Form(
           autovalidateMode: AutovalidateMode.onUserInteraction,
-          key: controller.formkey,
+          key: _adddoctorController.formkey,
           child: GetX<AddDoctorDetailController>(
-            builder: (controller) => Column(
+            builder: (_adddoctorcontroller) => Column(
               children: [
                 DisplayImage(
-                    imagePath: controller.profilePicUrl.value,
+                    imagePath: _adddoctorcontroller.profilePicUrl.value,
                     onPressed: () {
-                      controller.toEditProfilePic();
+                      _adddoctorcontroller.toEditProfilePic();
                     }),
                 SizedBox(height: 20),
                 TextFormField(
@@ -42,14 +60,14 @@ class AddDoctorDetailView extends GetView<AddDoctorDetailController> {
                       return null;
                     }
                   }),
-                  initialValue: controller.doctor == null
+                  initialValue: _adddoctorcontroller.doctor == null
                       ? ''
-                      : controller.doctorName.value,
+                      : _adddoctorcontroller.doctorName.value,
                   onSaved: (name) {
-                    controller.doctorName.value = name!;
+                    _adddoctorcontroller.doctorName.value = name!;
                   },
                   decoration: InputDecoration(
-                      hintText: controller.doctor == null
+                      hintText: _adddoctorcontroller.doctor == null
                           ? 'Doctor Name e.g : Dr. Maria Alexandra'.tr
                           : '',
                       border: OutlineInputBorder(
@@ -62,14 +80,14 @@ class AddDoctorDetailView extends GetView<AddDoctorDetailController> {
                   onEditingComplete: () {
                     node.nextFocus();
                   },
-                  initialValue: controller.doctor == null
+                  initialValue: _adddoctorcontroller.doctor == null
                       ? null
-                      : controller.doctorHospital.value,
+                      : _adddoctorcontroller.doctorHospital.value,
                   onSaved: (hospital) {
-                    controller.doctorHospital.value = hospital!;
+                    _adddoctorcontroller.doctorHospital.value = hospital!;
                   },
                   decoration: InputDecoration(
-                      hintText: controller.doctor == null
+                      hintText: _adddoctorcontroller.doctor == null
                           ? 'the Hospital, where you work'.tr
                           : null,
                       border: OutlineInputBorder(
@@ -84,13 +102,13 @@ class AddDoctorDetailView extends GetView<AddDoctorDetailController> {
                     node.nextFocus();
                   },
                   onSaved: (shortBiography) {
-                    controller.shortBiography.value = shortBiography!;
+                    _adddoctorcontroller.shortBiography.value = shortBiography!;
                   },
-                  initialValue: controller.doctor == null
+                  initialValue: _adddoctorcontroller.doctor == null
                       ? null
-                      : controller.shortBiography.value,
+                      : _adddoctorcontroller.shortBiography.value,
                   decoration: InputDecoration(
-                      hintText: controller.doctor == null
+                      hintText: _adddoctorcontroller.doctor == null
                           ? 'Short Biography'.tr
                           : null,
                       border: OutlineInputBorder(
@@ -99,42 +117,42 @@ class AddDoctorDetailView extends GetView<AddDoctorDetailController> {
                 ),
                 SizedBox(height: 20),
                 TextField(
-                  controller: controller.textAcademicQualificationController,
+                  controller: _adddoctorcontroller.textAcademicQualificationController,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       hintText: 'Academic Qualification'.tr),
                   maxLines: 5,
                   textInputAction: TextInputAction.done,
                   onSubmitted: (value) =>
-                      controller.academicQualification = value,
+                  _adddoctorcontroller.academicQualification = value,
                 ),
                 SizedBox(height: 20),
                 TextField(
-                  controller: controller.textPastExprienceInCompanyController,
+                  controller: _adddoctorcontroller.textPastExprienceInCompanyController,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       hintText: 'Past experience in Companies'.tr),
                   maxLines: 5,
                   textInputAction: TextInputAction.done,
                   onSubmitted: (value) =>
-                      controller.academicQualification = value,
+                  _adddoctorcontroller.academicQualification = value,
                 ),
                 SizedBox(height: 20),
                 TextField(
                   controller:
-                      controller.textPastExprienceInConsultingController,
+                  _adddoctorcontroller.textPastExprienceInConsultingController,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       hintText: 'Past experience in Consulting'.tr),
                   maxLines: 5,
                   textInputAction: TextInputAction.done,
                   onSubmitted: (value) =>
-                      controller.academicQualification = value,
+                  _adddoctorcontroller.academicQualification = value,
                 ),
                 SizedBox(height: 20),
                 TextField(
                   keyboardType: TextInputType.number,
-                  controller: controller.textConsultingFeesController,
+                  controller: _adddoctorcontroller.textConsultingFeesController,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.teal)),
@@ -147,7 +165,7 @@ class AddDoctorDetailView extends GetView<AddDoctorDetailController> {
                 SizedBox(height: 20),
                 TextField(
                   keyboardType: TextInputType.number,
-                  controller: controller.textAgeController,
+                  controller: _adddoctorcontroller.textAgeController,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.teal)),
@@ -157,25 +175,25 @@ class AddDoctorDetailView extends GetView<AddDoctorDetailController> {
                 ),
                 SizedBox(height: 20),
                 TextField(
-                  controller: controller.textRecognitionController,
+                  controller: _adddoctorcontroller.textRecognitionController,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       hintText: 'Recognitions, Awards'.tr),
                   maxLines: 5,
                   textInputAction: TextInputAction.done,
                   onSubmitted: (value) =>
-                      controller.academicQualification = value,
+                  _adddoctorcontroller.academicQualification = value,
                 ),
                 SizedBox(height: 20),
                 TextField(
-                  controller: controller.textValueYouBringController,
+                  controller: _adddoctorcontroller.textValueYouBringController,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       hintText: 'What value he can add to an SME client'.tr),
                   maxLines: 5,
                   textInputAction: TextInputAction.done,
                   onSubmitted: (value) =>
-                      controller.academicQualification = value,
+                  _adddoctorcontroller.academicQualification = value,
                 ),
                 SizedBox(height: 20),
                 TextButton(
@@ -193,19 +211,254 @@ class AddDoctorDetailView extends GetView<AddDoctorDetailController> {
                     children: [
                       SizedBox(width: 20),
                       Expanded(
-                          child: Text(controller.doctorCategory == null
+                          child: Text(_adddoctorcontroller.doctorCategory == null
                               ? 'Chose Doctor Category'.tr
-                              : controller.doctorCategory!.categoryName!)),
+                              : _adddoctorcontroller.doctorCategory!.categoryName!)),
                       Icon(Icons.arrow_forward_ios),
                     ],
                   ),
                 ),
+                SizedBox(height: 20),
+                TextButton(
+                  style: TextButton.styleFrom(
+                    primary: Colors.blue,
+                    padding: EdgeInsets.all(20),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15)),
+                    backgroundColor: Color(0xFFF5F6F9),
+                  ),
+                  onPressed: () {
+
+                    showModalBottomSheet(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return StreamBuilder<QuerySnapshot>(
+                          stream: _db.collection('Country').snapshots(),
+                          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                            if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
+                              return ListView.builder(
+                                itemCount: snapshot.data!.docs.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  var doc = snapshot.data!.docs[index];
+                                  return ListTile(
+                                    title: Text(doc['name']),
+                                    onTap: () {
+                                      //  Navigator.pop(context, doc['name']);
+                                      _selectedValue = doc['name'];
+                                      if(_selectedValue != 'India'){
+                                        _showIndianStateSelection = true;
+                                      }else{
+                                        _showIndianStateSelection = false;
+                                      }
+                                      Navigator.pop(context);
+                                    },
+                                  );
+
+                                },
+                              );
+                            } else if (snapshot.hasError) {
+                              return Text('Error: ${snapshot.error}');
+                            } else {
+                              return CircularProgressIndicator();
+                            }
+                          },
+                        );
+                      },
+                    ).then((_selectedValue) {
+                      print(_selectedValue);
+                    });
+                  },
+                  child: Row(
+                    children: [
+                      SizedBox(width: 20),
+                      Expanded(
+                          child: Text(_selectedValue ?? 'Select Country')),
+                      Icon(Icons.arrow_forward_ios),
+                    ],
+                  ),
+
+                ),
+                SizedBox(height: 20),
+                Visibility(
+                  visible: _selectedValue == 'India',
+                  child:
+                  TextButton(
+                    style: TextButton.styleFrom(
+                      primary: Colors.blue,
+                      padding: EdgeInsets.all(20),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15)),
+                      backgroundColor: Color(0xFFF5F6F9),
+
+                    ),
+                    onPressed: () {
+                      showModalBottomSheet(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return StreamBuilder<QuerySnapshot>(
+                            stream: _db.collection('State').snapshots(),
+                            builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                              if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
+                                return ListView.builder(
+                                  itemCount: snapshot.data!.docs.length,
+                                  itemBuilder: (BuildContext context, int index) {
+                                    var doc = snapshot.data!.docs[index];
+                                    return ListTile(
+                                      title: Text(doc['name']),
+                                      onTap: () {
+                                        //  Navigator.pop(context, doc['name']);
+                                        _selectedValueState = doc['name'];
+
+                                        Navigator.pop(context);
+                                      },
+                                    );
+
+                                  },
+                                );
+                              } else if (snapshot.hasError) {
+                                return Text('Error: ${snapshot.error}');
+                              } else {
+                                return CircularProgressIndicator();
+                              }
+                            },
+                          );
+                        },
+                      ).then((_selectedValueState) {
+
+                        print(_selectedValueState);
+                      });
+                    },
+
+                    child: Row(
+                      children: [
+                        SizedBox(width: 20),
+                        Expanded(
+                            child: Text(_selectedValueState ?? 'Select State')),
+                        Icon(Icons.arrow_forward_ios),
+                      ],
+                    ),
+                  ),),
+                SizedBox(height: 20),
+                Visibility(
+                  visible: _showIndianStateSelection,
+                  child:
+                  TextField(
+                    controller: _textController,
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: 'Enter State'.tr),
+                    maxLines: 1,
+                    textInputAction: TextInputAction.done,
+
+                  ),),
+                SizedBox(height: 20),
+
+
+                Obx(() => Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Do You have Gst Number:',
+                      style: TextStyle(fontSize: 16.0),
+                    ),
+                    RadioListTile(
+                      title: Text('Yes'),
+                      value: 0,
+                      groupValue: _adddoctorcontroller.selectedRadio.value,
+                      onChanged: (int? value) {
+                        _adddoctorcontroller.handleRadioValueChange(value);
+                      },
+                    ),
+                    RadioListTile(
+                      title: Text('No'),
+                      value: 1,
+                      groupValue: _adddoctorcontroller.selectedRadio.value,
+                      onChanged: (int? value) {
+                        _adddoctorcontroller.handleRadioValueChange(value);
+                      },
+                    ),
+                  ],
+                )),
+
+
+
+                SizedBox(height: 20),
+            Visibility(
+              visible: _adddoctorcontroller.selectedRadio.value.isEqual(0),
+              child:
+                TextField(
+                  controller: _adddoctorcontroller.textgstnoController,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintText: 'GST No'.tr),
+                  maxLines: 1,
+                  textInputAction: TextInputAction.done,
+                  onSubmitted: (value) =>
+                  _adddoctorcontroller.gstno = value,
+
+                ),),
+                SizedBox(height: 20),
+                TextField(
+                  controller: _adddoctorcontroller.textaddressController,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintText: 'Address'.tr),
+                  maxLines: 5,
+                  textInputAction: TextInputAction.done,
+
+
+
+                ),
+                SizedBox(height: 20),
+                TextField(
+                  controller: _adddoctorcontroller.textpanController,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintText: 'PAN No'.tr),
+                  maxLines: 1,
+                  textInputAction: TextInputAction.done,
+                  onSubmitted: (value) =>
+                  _adddoctorcontroller.pan = value,
+
+                ),
+                SizedBox(height: 20),
+                TextField(
+                  keyboardType: TextInputType.number,
+                  controller: _adddoctorcontroller.textmobileController,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintText: 'Mobile No'.tr),
+                  maxLines: 1,
+                  textInputAction: TextInputAction.done,
+                  onSubmitted: (value) =>
+                  _adddoctorcontroller.mobile = value,
+
+                ),
+
+
                 Divider(
                   height: 40,
                 ),
                 submitButton(
-                    onTap: () {
-                      controller.saveDoctorDetail();
+                    onTap: ()  async {
+                      if(_selectedValue=="India"){
+                        state=_selectedValueState!;
+                        var languageSettingVersionRef = await FirebaseFirestore.instance
+                            .collection('State').where('name', isEqualTo: state)
+                            .get();
+                        for (var snapshot in languageSettingVersionRef.docs) {
+                          if(snapshot.exists){
+                            Map<String, dynamic> data = snapshot.data();
+                            statecode = data['code'];
+                          }else{
+                            statecode = "CODE";
+                          }
+
+                        }
+                      }else{
+                        state=_textController.text;
+                      }
+                      _adddoctorcontroller.saveDoctorDetail(_selectedValue!,state!,statecode!);
                     },
                     text: 'Save'.tr)
               ],
@@ -214,5 +467,9 @@ class AddDoctorDetailView extends GetView<AddDoctorDetailController> {
         ),
       ),
     );
+
   }
+
+
 }
+
