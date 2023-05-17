@@ -29,6 +29,9 @@ abstract class Routes {
   static const REVIEW = _Paths.REVIEW;
   static const CONTACT_US = _Paths.CONTACT_US;
   static const PRIVACY_POLICY = _Paths.PRIVACY_POLICY;
+  static const FAQ = _Paths.FAQ;
+
+
 
 }
 
@@ -56,4 +59,5 @@ abstract class _Paths {
   static const REVIEW = '/review';
   static const CONTACT_US = '/contact-us';
   static const PRIVACY_POLICY = '/privacy-policy';
+  static const FAQ = '/faq';
 }

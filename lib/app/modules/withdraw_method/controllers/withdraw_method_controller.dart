@@ -16,9 +16,9 @@ class WithdrawMethodController extends GetxController
   @override
   void onClose() {}
   void addWithdrawMethod() {}
-  void addPaypal(String name, String email) {
+  void addPaypal(String name, String email, String accountno, String ifsc) {
     EasyLoading.show(maskType: EasyLoadingMaskType.black);
-    WithdrawService().addPaypalMethod(name, email).then((value) {
+    WithdrawService().addPaypalMethod(name, email,accountno,ifsc).then((value) {
       Get.back();
       getAllPaymentMethod();
     }).whenComplete(() => EasyLoading.dismiss());

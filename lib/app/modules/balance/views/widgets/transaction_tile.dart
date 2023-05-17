@@ -58,7 +58,7 @@ class TransactionTile extends StatelessWidget {
                   height: 5,
                 ),
                 Text(
-                  '\$' + amount.toString(),
+                  'Rs.' + amount.toString(),
                   style: GoogleFonts.nunito(fontSize: 20),
                 ),
                 SizedBox(

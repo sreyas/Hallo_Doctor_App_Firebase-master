@@ -53,9 +53,16 @@ class EditProfileView extends GetView<EditProfileController> {
                           ' ' +
                           controller.basePrice.value.toString(),
                       onTap: () {
-                        controller.toChangeBasePrice();
+                        controller.createCsvFile();
                       },
                     )),
+                // EditProfileTile(
+                //   title: 'csv'.tr,
+                //
+                //   onTap: () {
+                //
+                //   },
+                // )
               ],
             ),
           ),

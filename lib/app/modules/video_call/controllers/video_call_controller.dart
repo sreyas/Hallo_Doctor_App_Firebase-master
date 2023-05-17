@@ -41,6 +41,7 @@ class VideoCallController extends GetxController {
           print("remote user $uid joined");
           remoteUid = uid;
           update();
+
         },
         userOffline: (int uid, UserOfflineReason reason) {
           print("remote user $uid left channel");
@@ -71,6 +72,7 @@ class VideoCallController extends GetxController {
     await VideoCallService().removeRoom(orderedTimeslot.timeSlotId!);
     await engine.leaveChannel();
     await engine.destroy();
+
     Get.back();
   }
 

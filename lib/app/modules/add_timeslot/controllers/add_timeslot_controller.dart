@@ -231,6 +231,8 @@ class AddTimeslotController extends GetxController {
         duration: duration!,
         available: available,
         callstatus: "0",
+        booking:"Open",
+        bookeduser:"",
         isParentTimeslot: isParent);
     if (price! < DoctorService.doctor!.doctorPrice!) {
       await DoctorService().updateDoctorBasePrice(price!);
@@ -246,6 +248,8 @@ class AddTimeslotController extends GetxController {
         duration: duration!,
         available: available,
         callstatus: "0",
+        booking:"Open",
+        bookeduser:"",
         repeatTimeslot: listRepeatTimeslot,
         parentTimeslotId: parentTimeslotId);
     if (price! < DoctorService.doctor!.doctorPrice!) {

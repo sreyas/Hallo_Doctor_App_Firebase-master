@@ -16,6 +16,8 @@ class DashboardController extends GetxController {
 
   @override
   void onInit() async {
+
+    print('lima dashboard');
     // TODO: implement onInit
     super.onInit();
     EasyLoading.show();

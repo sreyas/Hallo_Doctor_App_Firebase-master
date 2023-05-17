@@ -15,6 +15,9 @@ class TimeSlot {
       this.purchaseTime,
       this.status,
       this.callstatus,
+      this.booking,
+      this.bookeduser,
+
       this.parentTimeslotId});
   static const String _timeSlotId = 'timeSlotId';
   static const String _timeSlot = 'timeSlot';
@@ -29,6 +32,9 @@ class TimeSlot {
   static const String _repeatTimeSlot = 'repeatTimeSlot';
   static const String _parentTimeslotId = 'parentTimeslotId';
   static const String _callstatus= 'callstatus';
+  static const String _booking= 'booking';
+  static const String _bookeduser= 'bookeduser';
+
 
   String? timeSlotId;
   DateTime? timeSlot;
@@ -43,6 +49,9 @@ class TimeSlot {
   List<DateTime>? repeatTimeSlot;
   String? parentTimeslotId;
   String? callstatus;
+  String? booking;
+  String? bookeduser;
+
 
   factory TimeSlot.fromJson(Map<String, dynamic> jsonData) {
     return TimeSlot(
@@ -62,7 +71,7 @@ class TimeSlot {
             ? (jsonData[_purchaseTime] as Timestamp).toDate()
             : null,
         status: jsonData[_status],
-        parentTimeslotId: jsonData[_parentTimeslotId],callstatus: jsonData[_callstatus]);
+        parentTimeslotId: jsonData[_parentTimeslotId],callstatus: jsonData[_callstatus],booking: jsonData[_booking],bookeduser: jsonData[_bookeduser]);
 
   }
 
@@ -74,7 +83,10 @@ class TimeSlot {
         _available: timeSlot.available,
         _doctorId: timeSlot.doctorid,
         _parentTimeslotId: timeSlot.parentTimeslotId,
-        _callstatus:timeSlot.callstatus
+        _callstatus:timeSlot.callstatus,
+        _booking:timeSlot.booking,
+        _bookeduser:timeSlot.bookeduser
+
       };
     } else {
       return {
@@ -84,7 +96,9 @@ class TimeSlot {
         _available: timeSlot.available,
         _doctorId: timeSlot.doctorid,
         _parentTimeslotId: timeSlot.parentTimeslotId,
-        _callstatus:timeSlot.callstatus
+        _callstatus:timeSlot.callstatus,
+        _booking:timeSlot.booking,
+        _bookeduser:timeSlot.bookeduser
       };
     }
   }

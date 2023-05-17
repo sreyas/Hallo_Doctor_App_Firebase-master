@@ -44,7 +44,7 @@ class WithdrawMethodView extends GetView<WithdrawMethodController> {
                               color: Styles.whiteGreyColor,
                               image: DecorationImage(
                                 image:
-                                    AssetImage('assets/images/paypal_logo.png'),
+                                    AssetImage('assets/images/payment.png'),
                               ),
                             ),
                           ),
@@ -52,7 +52,7 @@ class WithdrawMethodView extends GetView<WithdrawMethodController> {
                             width: 10,
                           ),
                           Text(
-                            "Paypal",
+                            "Admin Payment",
                             style:
                                 GoogleFonts.nunito(fontWeight: FontWeight.bold),
                           ),

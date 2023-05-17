@@ -12,6 +12,9 @@ class TimeSlotService {
       required int duration,
       required bool available,
       required String callstatus,
+      required String booking,
+      required String bookeduser,
+
       bool isParentTimeslot = false}) async {
     TimeSlot timeSlot = TimeSlot();
     timeSlot.timeSlot = dateTime;
@@ -20,6 +23,9 @@ class TimeSlotService {
     timeSlot.available = available;
     timeSlot.doctorid = DoctorService.doctor!.doctorId;
     timeSlot.callstatus="0";
+    timeSlot.booking="Open";
+    timeSlot.bookeduser="";
+
 
     try {
       if (isParentTimeslot) {
@@ -46,6 +52,10 @@ class TimeSlotService {
       required int duration,
       required bool available,
       required String callstatus,
+      required String booking,
+      required String bookeduser,
+
+
       required List<DateTime> repeatTimeslot,
       required parentTimeslotId}) async {
     var batch = FirebaseFirestore.instance.batch();
@@ -57,6 +67,10 @@ class TimeSlotService {
     timeSlot.doctorid = DoctorService.doctor!.doctorId;
     timeSlot.parentTimeslotId = parentTimeslotId;
     timeSlot.callstatus=callstatus;
+    timeSlot.booking=booking;
+    timeSlot.bookeduser=bookeduser;
+
+
     for (var dateTime in repeatTimeslot) {
       var docRef =
           FirebaseFirestore.instance.collection("DoctorTimeslot").doc();
@@ -177,7 +191,7 @@ class TimeSlotService {
       var documentRef = FirebaseFirestore.instance
           .collection('DoctorTimeslot')
           .where('doctorId', isEqualTo: doctor!.doctorId)
-          .where('charged', isEqualTo: true).where('callstatus', isEqualTo: '0');
+          .where('charged', isEqualTo: true);
       var documentSnapshot = limit == null
           ? await documentRef.get()
           : await documentRef.limit(limit).get();

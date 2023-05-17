@@ -20,6 +20,7 @@ class FirebaseService {
   }
 
   Future userSetup(User user, String displayName) async {
+
     CollectionReference users = FirebaseFirestore.instance.collection('Users');
     String uid = user.uid.toString();
 

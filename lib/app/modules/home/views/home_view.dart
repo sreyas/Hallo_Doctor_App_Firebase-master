@@ -97,7 +97,7 @@ class HomeView extends GetView<HomeController> {
                                     fontSize: 40, fontWeight: FontWeight.w400))
                             : Text(
                                 currencySign +
-                                    dahsboardData!.balance.toString(),
+                                   controller.balvalue.toStringAsFixed(2),
                                 style: GoogleFonts.inter(
                                     fontSize: 40, fontWeight: FontWeight.w400),
                               ),
@@ -107,33 +107,33 @@ class HomeView extends GetView<HomeController> {
                       ],
                     ),
                     VerticalDivider(),
-                    Column(
-                      children: [
-                        Text(
-                          'Appointment made'.tr,
-                          style: GoogleFonts.inter(
-                              fontSize: 15, fontWeight: FontWeight.w400),
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Text(
-                          '0',
-                          style: GoogleFonts.inter(
-                              fontSize: 40, fontWeight: FontWeight.w500),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          'this month'.tr,
-                          style: GoogleFonts.inter(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                              color: Styles.greyTextColor),
-                        )
-                      ],
-                    ),
+                    // Column(
+                    //   children: [
+                    //     Text(
+                    //       'Appointment made'.tr,
+                    //       style: GoogleFonts.inter(
+                    //           fontSize: 15, fontWeight: FontWeight.w400),
+                    //     ),
+                    //     SizedBox(
+                    //       height: 5,
+                    //     ),
+                    //     Text(
+                    //       '0',
+                    //       style: GoogleFonts.inter(
+                    //           fontSize: 40, fontWeight: FontWeight.w500),
+                    //     ),
+                    //     SizedBox(
+                    //       height: 10,
+                    //     ),
+                    //     Text(
+                    //       'this month'.tr,
+                    //       style: GoogleFonts.inter(
+                    //           fontSize: 14,
+                    //           fontWeight: FontWeight.w400,
+                    //           color: Styles.greyTextColor),
+                    //     )
+                    //   ],
+                    // ),
                   ],
                 ),
               ),

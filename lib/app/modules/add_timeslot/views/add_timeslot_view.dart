@@ -111,7 +111,7 @@ class AddTimeslotView extends GetView<AddTimeslotController> {
                   decoration: InputDecoration(
                       hintText: 'Price'.tr,
                       border: InputBorder.none,
-                      prefixIcon: Icon(Icons.attach_money)),
+                      prefixIcon: Icon(Icons.currency_rupee)),
                   validator: FormBuilderValidators.compose([
                     FormBuilderValidators.required(context),
                     FormBuilderValidators.numeric(context),

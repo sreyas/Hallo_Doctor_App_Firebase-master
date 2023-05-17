@@ -63,7 +63,7 @@ class AuthService {
   Future<bool> checkDoctorDetail() async {
     try {
       String doctorId = await UserService().getDoctorId();
-      print("doctor" + doctorId);
+      print("limaaa" + doctorId);
       // var doctorReferences = await FirebaseFirestore.instance
       //     .collection('Users')
       //     .where('doctorId', isEqualTo: doctorId)

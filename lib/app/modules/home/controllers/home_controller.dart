@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hallo_doctor_doctor_app/app/models/dashboard_model.dart';
@@ -17,7 +18,7 @@ class HomeController extends GetxController with StateMixin<DashboardModel> {
   final profilePic = ''.obs;
   DashboardModel dashboardModel = DashboardModel();
   var lock = Lock();
-
+  late  num balvalue=0;
   @override
   void onReady() async {
     super.onReady();
@@ -70,7 +71,48 @@ class HomeController extends GetxController with StateMixin<DashboardModel> {
     }
   }
 
-  getBalance() {
+  getBalance() async {
+    var doctorId = await UserService().getDoctorId();
+
+    num balance = 0.0;
+
+    // final DocumentSnapshot snapshot = await FirebaseFirestore.instance
+    //     .collection('Doctors')
+    //     .doc(doctorId)
+    //     .get();
+    //
+    // if (snapshot.exists) {
+    //   final num value = snapshot.get('balance');
+    //   balvalue=value;
+    //   // Use the fieldValue or perform further operations
+    // } else {
+    //   balvalue=0;
+    // }
+
+
+    try {
+      DocumentSnapshot snapshot = await FirebaseFirestore.instance
+          .collection('Doctors')
+          .doc(doctorId)
+          .get();
+
+      if (snapshot.exists) {
+        Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+        balance = (data['balance'] ?? 0.0);
+        balvalue=balance;
+
+      }
+    } catch (e) {
+      print('Error retrieving doctor balance: $e');
+    }
+
+
+    print("aaaaaaaaa");
+    print(doctorId);
+
+
+
+
     dashboardModel.balance = DoctorService.doctor!.doctorBalance;
     change(dashboardModel, status: RxStatus.success());
   }

@@ -57,11 +57,11 @@ class BalanceView extends GetView<BalanceController> {
                     SizedBox(
                       height: 5,
                     ),
-                    Obx(() => Text(
-                          currencySign + controller.balance.value.toString(),
+                     Text(
+                          currencySign + controller.amount.toStringAsFixed(2),
                           style: GoogleFonts.inter(
                               fontSize: 40, fontWeight: FontWeight.w600),
-                        )),
+                        ),
                     SizedBox(
                       height: 10,
                     ),

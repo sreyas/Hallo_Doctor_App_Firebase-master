@@ -42,7 +42,7 @@ class WithdrawMethodTile extends StatelessWidget {
                     shape: BoxShape.circle,
                     color: Styles.whiteGreyColor,
                     image: DecorationImage(
-                      image: AssetImage('assets/images/paypal_logo.png'),
+                      image: AssetImage('assets/images/payment.png'),
                     ),
                   ),
                 ),
@@ -61,7 +61,7 @@ class WithdrawMethodTile extends StatelessWidget {
                           color: Colors.black),
                     ),
                     Text(
-                      'Paypal',
+                      'Admin Payment',
                       style: GoogleFonts.nunito(
                           fontSize: 12,
                           fontWeight: FontWeight.w700,

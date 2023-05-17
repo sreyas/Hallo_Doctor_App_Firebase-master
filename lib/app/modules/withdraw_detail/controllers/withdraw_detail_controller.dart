@@ -13,7 +13,7 @@ class WithdrawDetailController extends GetxController {
   final count = 0.obs;
   var pass = ''.obs;
   WithdrawMethod withdrawMethod = Get.arguments[0]['withdrawMethod'];
-  int amount = Get.arguments[0]['amount'];
+  num amount = Get.arguments[0]['amount'];
   WithdrawSettingsDetail? withdrawSettingsDetail;
   double? total;
   double? percentageCut;
