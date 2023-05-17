@@ -1,7 +1,5 @@
 import 'dart:io';
-import 'dart:math';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -22,7 +20,7 @@ class AddDoctorDetailController extends GetxController
 
   final count = 0.obs;
 
-  final formkey = GlobalKey<FormState>();
+  var formkey = GlobalKey<FormState>();
   var doctorName = ''.obs;
   var doctorHospital = ''.obs;
   var shortBiography = ''.obs;
@@ -41,41 +39,9 @@ class AddDoctorDetailController extends GetxController
   TextEditingController textAgeController = TextEditingController();
   TextEditingController textRecognitionController = TextEditingController();
   TextEditingController textValueYouBringController = TextEditingController();
-  TextEditingController textgstnoController = TextEditingController();
-  TextEditingController textaddressController = TextEditingController();
-  TextEditingController textpanController = TextEditingController();
-  TextEditingController textmobileController = TextEditingController();
-
-  var statecode;
-  String gstno='';
-  String address='';
-  String gstType='Advisor',pan='',mobile='';
-
-
-  RxInt selectedRadio = 0.obs;
-
-  Future<void> handleRadioValueChange(int? value) async {
-    if (value != null) {
-      selectedRadio.value = value;
-    }
-    if(value==1){
-      gstType='Biz';
-
-
-      var languageSettingVersionRef1 = await FirebaseFirestore.instance
-          .collection('Settings')
-          .doc('withdrawSetting')
-          .get();
-
-      textgstnoController.text = languageSettingVersionRef1.data()!['gstno'];
-    }
-  }
-
-
   @override
   void onInit() {
     super.onInit();
-
     if (doctor != null) {
       isEdit = true;
       profilePicUrl.value = doctor!.doctorPicture!;
@@ -83,11 +49,9 @@ class AddDoctorDetailController extends GetxController
       doctorHospital.value = doctor!.doctorHospital!;
       shortBiography.value = doctor!.doctorShortBiography!;
       doctorCategory = doctor!.doctorCategory!;
-
       update();
     }
   }
-
 
   @override
   void onClose() {}
@@ -116,15 +80,7 @@ class AddDoctorDetailController extends GetxController
     });
   }
 
-  void saveDoctorDetail(String _selectedValue,String state,String statecode) async {
-
-
-    const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIGKLMNOPQRSTUVWXYZ';
-    final random = Random();
-    String uniquekey=String.fromCharCodes(Iterable.generate(
-        6, (_) => chars.codeUnitAt(random.nextInt(chars.length))));
-
-
+  void saveDoctorDetail() async {
     if (profilePicUrl.value.isEmpty) {
       exceptionToast('Please choose your profile photo'.tr);
       return;
@@ -138,57 +94,22 @@ class AddDoctorDetailController extends GetxController
       EasyLoading.show(
           status: 'loading...'.tr, maskType: EasyLoadingMaskType.black);
       try {
-
-        final FirebaseFirestore firestore = FirebaseFirestore.instance;
-        final CollectionReference collection = firestore.collection('Doctors');
-
-
-
-        while (true) {
-          // Check if the number already exists in Firestore
-          QuerySnapshot snapshot =
-          await collection.where('uniquekey', isEqualTo: uniquekey).get();
-          if (snapshot.size == 0) {
-
-            await DoctorService().saveDoctorDetail(
-              doctorName: doctorName.value,
-              hospital: doctorHospital.value,
-              shortBiography: shortBiography.value,
-              pictureUrl: profilePicUrl.value,
-              doctorCategory: doctorCategory!,
-              isUpdate: isEdit,
-              academicQualification: textAcademicQualificationController.text,
-              basePrice: int.parse(textConsultingFeesController.text),
-              age: textAgeController.text,
-              pastExperienceInCompany: textPastExprienceInCompanyController.text,
-              pastExperienceInConsulting:
+        await DoctorService().saveDoctorDetail(
+          doctorName: doctorName.value,
+          hospital: doctorHospital.value,
+          shortBiography: shortBiography.value,
+          pictureUrl: profilePicUrl.value,
+          doctorCategory: doctorCategory!,
+          isUpdate: isEdit,
+          academicQualification: textAcademicQualificationController.text,
+          basePrice: int.parse(textConsultingFeesController.text),
+          age: textAgeController.text,
+          pastExperienceInCompany: textPastExprienceInCompanyController.text,
+          pastExperienceInConsulting:
               textPastExprienceInConsultingController.text,
-              valueYouBring: textValueYouBringController.text,
-              recognition: textRecognitionController.text,
-              country: _selectedValue,
-              state: state,
-              statecode: statecode,
-              gstno:textgstnoController.text,
-              address:textaddressController.text,
-              uniquekey:uniquekey,
-              gstType:gstType,
-              pan:textpanController.text,
-              mobile:textmobileController.text,
-
-            );
-
-
-            break;
-          } else {
-            const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFG';
-            final random = Random();
-            uniquekey=String.fromCharCodes(Iterable.generate(
-                6, (_) => chars.codeUnitAt(random.nextInt(chars.length))));
-
-          }
-        }
-
-
+          valueYouBring: textValueYouBringController.text,
+          recognition: textRecognitionController.text,
+        );
         Get.offNamed('/dashboard');
         EasyLoading.dismiss();
       } catch (e) {
@@ -197,5 +118,4 @@ class AddDoctorDetailController extends GetxController
       }
     }
   }
-
 }

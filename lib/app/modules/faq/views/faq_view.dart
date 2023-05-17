@@ -1,13 +1,18 @@
 //import 'package:faq/faq.dart';
+<<<<<<< HEAD
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:faqflutter/faqflutter.dart';
 import 'package:firebase_core/firebase_core.dart';
+=======
+import 'package:faqflutter/faqflutter.dart';
+>>>>>>> origin/master
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
 import '../controllers/faq_controller.dart';
 
+<<<<<<< HEAD
 // class FaqView extends GetView<FaqController> {
 //   @override
 //   Widget build(BuildContext context) {
@@ -138,3 +143,35 @@ class FAQScreen extends StatelessWidget {
     );
   }
 }
+=======
+class FaqView extends GetView<FaqController> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: Text('FAQ'),
+          centerTitle: true,
+        ),
+        body: Center(
+            child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Container(
+                alignment: Alignment.center,
+                height: 100,
+                child: Text(
+                  'Frequently Asked Questions',
+                  style: TextStyle(fontSize: 20),
+                )),
+            GetBuilder<FaqController>(
+              builder: (_) {
+                return FaqFlutter(
+                  data: controller.faqList,
+                );
+              },
+            )
+          ],
+        )));
+  }
+}
+>>>>>>> origin/master

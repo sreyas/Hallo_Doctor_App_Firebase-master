@@ -4,7 +4,7 @@ import 'package:hallo_doctor_doctor_app/app/models/doctor_model.dart';
 import 'package:hallo_doctor_doctor_app/app/services/doctor_service.dart';
 
 class BalanceService {
-  Future<num> getBalance() async {
+  Future<int> getBalance() async {
     try {
       var userSnapshot = await FirebaseFirestore.instance
           .collection('Doctors')

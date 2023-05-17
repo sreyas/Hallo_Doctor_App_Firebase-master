@@ -1,20 +1,14 @@
-
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hallo_doctor_doctor_app/app/models/transaction_model.dart';
 import 'package:hallo_doctor_doctor_app/app/services/balance_service.dart';
 import 'package:hallo_doctor_doctor_app/app/services/transaction_service.dart';
 
-import '../../../services/user_service.dart';
-
 class BalanceController extends GetxController
     with StateMixin<List<Transaction>> {
   //TODO: Implement BalanceController
 
   var balance = 0.obs;
-  double v=0.0;
-
-  final amount = Get.arguments;
   @override
   void onInit() async {
     super.onInit();
@@ -22,7 +16,7 @@ class BalanceController extends GetxController
   }
 
   initBalance() async {
-    //await getBalance();
+    await getBalance();
     await getTransaction();
   }
 
@@ -44,23 +38,15 @@ class BalanceController extends GetxController
   }
 
   getBalance() async {
-
-
-
-
-    // try {
-    //   //var doctor = await DoctorService().getDoctor();
-    //   balance.value = (await BalanceService().getBalance()) as int;
-    //
-    // } catch (err) {
-    //   Fluttertoast.showToast(msg: err.toString());
-    // }
-
-
-
+    try {
+      //var doctor = await DoctorService().getDoctor();
+      balance.value = await BalanceService().getBalance();
+    } catch (err) {
+      Fluttertoast.showToast(msg: err.toString());
+    }
   }
 
   withdraw() {
-    Get.toNamed('/withdraw-method', arguments: amount);
+    Get.toNamed('/withdraw-method', arguments: balance.value);
   }
 }

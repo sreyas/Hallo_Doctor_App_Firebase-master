@@ -17,7 +17,7 @@ Doctor _$DoctorFromJson(Map<String, dynamic> json) => Doctor(
           : DoctorCategory.fromJson(
               json['doctorCategory'] as Map<String, dynamic>),
       doctorHospital: json['doctorHospital'] as String?,
-      doctorBalance: json['balance'] as num?,
+      doctorBalance: json['balance'] as int?,
       accountStatus: json['accountStatus'] as String?,
       academicQualification: json['academicQualification'] as String?,
       pastExperienceInCompany: json['pastExperienceInCompany'] as String?,

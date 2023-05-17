@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:hallo_doctor_doctor_app/app/models/doctor_category.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -24,7 +22,7 @@ class Doctor {
   @JsonKey(name: 'doctorHospital')
   String? doctorHospital;
   @JsonKey(name: 'balance')
-  num? doctorBalance;
+  int? doctorBalance;
   @JsonKey(name: 'accountStatus')
   String? accountStatus;
   @JsonKey(name: 'academicQualification')
